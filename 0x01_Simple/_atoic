@@ -1,10 +1,10 @@
 #include "shell.h"
 
 /**
- * interactive - returns true if shell is interactive mode
+ * interactive - if is in interacive mode return true.
  * @info: struct address
  *
- * Return: 1 if interactive mode, 0 otherwise
+ * Return: if it is interactive mode return 1 
  */
 int interactive(info_t *info)
 {
@@ -40,26 +40,26 @@ int _isalpha(int c)
 }
 
 /**
- *_atoi - converts a string to an integer
+ *_atoi - converts the string to interger
  *@s: the string to be converted
- *Return: 0 if no numbers in string, converted number otherwise
+ *Return: convert number to string or return 0.
  */
 
 int _atoi(char *s)
 {
-    int i = 0, sign = 1, flag = 0, output;
+    int j = 0, sign = 1, flag = 0, output;
     unsigned int result = 0;
 
-    while (s[i] != '\0' && flag != 2)
+    while (s[j] != '\0' && flag != 2)
     {
-        if (s[i] == '-')
+        if (s[j] == '-')
             sign *= -1;
 
-        if (s[i] >= '0' && s[i] <= '9')
+        if (s[j] >= '0' && s[j] <= '9')
         {
             flag = 1;
             result *= 10;
-            result += (s[i] - '0');
+            result += (s[j] - '0');
         }
         else if (flag == 1)
             flag = 2;
