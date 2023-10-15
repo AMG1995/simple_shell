@@ -10,7 +10,7 @@ int _myenv(info_t *info) {
     return 0;
 }
 
-char *_getenv(info_t *info, const char *name) {
+char *_getenvi(info_t *info, const char *name) {
     list_t *node = info->env;
     while (node) {
         env_var_t *env = (env_var_t *)node->ptr;
@@ -22,7 +22,7 @@ char *_getenv(info_t *info, const char *name) {
     return NULL;
 }
 
-int _setenv(info_t *info, const char *name, const char *value) {
+int _setenvi(info_t *info, const char *name, const char *value) {
     list_t *node = info->env;
     while (node) {
         env_var_t *env = (env_var_t *)node->ptr;
@@ -41,7 +41,7 @@ int _setenv(info_t *info, const char *name, const char *value) {
     return 0;
 }
 
-int _unsetenv(info_t *info, const char *name) {
+int _unsetenvi(info_t *info, const char *name) {
     list_t *node = info->env;
     while (node) {
         env_var_t *env = (env_var_t *)node->ptr;
