@@ -1,12 +1,12 @@
 #include "shell.h"
 
 /**
- * _exit - exits the shell
+ * _forexit - exits the shell
  * @info: Useing to maintain constant function prototype.
  *  Return: exits with a given exit status
  *         (0) if info.argv[0] != "exit"
  */
-int _exit(info_t *info)
+int _forexit(info_t *info)
 {
 	int exchecker;
 
