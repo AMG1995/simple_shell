@@ -58,11 +58,11 @@ int find_builtin(info_t *info)
 	builtin_table builtintbl[] = {
 		{"exit", _forexit},
 		{"env", _myenv},
-		{"help", _myhelp},
+		{"help", _help},
 		{"history", _myhistory},
 		{"setenv", _mysetenv},
 		{"unsetenv", _myunsetenv},
-		{"cd", _mycd},
+		{"cd", _cd},
 		{"alias", _myalias},
 		{NULL, NULL}
 	};
