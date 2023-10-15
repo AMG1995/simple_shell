@@ -57,6 +57,7 @@ int _cd(info_t *info) {
 }
 
 int _help(info_t *info) {
+    (void)info;
     _puts("Help: This is a simple shell. Not all features are implemented yet.\n");
     return 0;
 }
