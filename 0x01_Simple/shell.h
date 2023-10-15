@@ -176,7 +176,7 @@ void remove_comments(char *);
 /* toem_builtin.c */
 int _exit(info_t *);
 int _cd(info_t *);
-int _myhelp(info_t *);
+int _help(info_t *);
 
 /* toem_builtin1.c */
 int _myhistory(info_t *);
