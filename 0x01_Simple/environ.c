@@ -77,16 +77,16 @@ int _unsetenvi(info_t *info)
  */
 int populate_env_list(info_t *info)
 {
-	list_t *node = NULL;
+	list_t *n = NULL;
 	size_t i;
 	i = 0;
 
-	while (environ[i]) 
+	while (enviro_array[i]) 
 		{
-    		add_node_end(&node, environ[i], 0);
+    		add_node_end(&n, enviro_array[i], 0);
 		i++;
 		}
-	info->env = node;
+	info->env = n;
 	return (0);
 }
 
