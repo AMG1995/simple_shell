@@ -19,13 +19,14 @@ int _forexit(info_t *info) {
 
 int _cd(info_t *info) {
     char *target_dir = (info->argv[1]) ? info->argv[1] : _getenv(info, "HOME=");
+    char *current_dir;
 
     if (!target_dir) {
         _puts("HOME environment variable not set\n");
         return 1;
     }
 
-    char *current_dir = getcwd(NULL, 0);
+    current_dir = getcwd(NULL, 0);
     if (!current_dir) {
         _puts("getcwd failure\n");
         return 1;
