@@ -193,7 +193,7 @@ void set_info(info_t *, char **);
 void free_info(info_t *, int);
 
 /* toem_environ.c */
-char *_getenv(info_t *, const char *);
+char *_getenvi(info_t *, const char *);
 int _myenv(info_t *);
 int _setenvi(info_t *);
 int _unsetenvi(info_t *);
