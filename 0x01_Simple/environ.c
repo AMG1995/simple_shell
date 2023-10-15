@@ -6,7 +6,7 @@ typedef struct env_var {
 } env_var_t;
 
 int _myenv(info_t *info) {
-    print_env(info->env);
+    print_list_str(info->env);
     return 0;
 }
 
