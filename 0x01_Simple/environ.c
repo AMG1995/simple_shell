@@ -19,7 +19,7 @@ int _myenv(info_t *info)
  *
  * Return: the value
  */
-char *_getenvi(info_t *info, const char *name)
+char *_getenv(info_t *info, const char *name)
 {
 	list_t *node = info->env;
 	char *p;
