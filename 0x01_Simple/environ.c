@@ -61,7 +61,7 @@ int _unsetenvi(info_t *info)
 
 	if (info->argc == 1)
 	{
-		_eputs("you enteren few arguements.\n");
+		write_stderr("you enteren few arguements.\n");
 		return (1);
 	}
 	for (i = 1; i <= info->argc; i++)
