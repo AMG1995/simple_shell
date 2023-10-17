@@ -8,9 +8,10 @@
  */
 void write_stderr(char *str)
 {
+    int i;
     if (!str)
         return;
-    int i;
+    
     for (i = 0; str[i] != '\0'; i++)
     {
         write_stderr_char(str[i]);
@@ -79,11 +80,10 @@ int write_to_fd(char c, int fd)
  */
 int write_string_to_fd(char *str, int fd)
 {
-    int i = 0;
+    int i,j = 0;
 
     if (!str)
         return (0);
-    int j;
     for (j = 0; str[j] != '\0'; j++)
     {
         i += write_to_fd(str[j], fd);
