@@ -183,9 +183,9 @@ int display_history(info_t *);
 int manage_alias(info_t *);
 
 /*toem_getline.c */
-ssize_t get_input(info_t *);
+ssize_t getInput(info_t *);
 int _getline(info_t *, char **, size_t *);
-void sigintHandler(int);
+void handleSIGINT(int);
 
 /* toem_getinfo.c */
 void clear_info(info_t *);
