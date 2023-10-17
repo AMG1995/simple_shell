@@ -40,10 +40,10 @@ void print_error(info_t *info, char *estr)
 	write_stderr(info->fname);
 	write_stderr(": ");
 	print_d(info->line_count, STDERR_FILENO);
-	_eputs(": ");
-	_eputs(info->argv[0]);
-	_eputs(": ");
-	_eputs(estr);
+	write_stderr(": ");
+	write_stderr(info->argv[0]);
+	write_stderr(": ");
+	write_stderr(estr);
 }
 
 /**
