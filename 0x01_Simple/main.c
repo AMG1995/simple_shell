@@ -28,7 +28,7 @@ int main(int ac, char **av)
 			{
 				write_stderr(av[0]);
 				write_stderr(": 0: Can't open ");
-				_eputs(av[1]);
+				write_stderr(av[1]);
 				write_stderr_char('\n');
 				write_stderr_char(BUF_FLUSH);
 				exit(127);
