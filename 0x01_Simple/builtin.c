@@ -44,8 +44,8 @@ int _cd(info_t *info) {
 
     if (chdir(target_dir) == -1) {
         print_error(info, "can't cd to ");
-        _eputs(target_dir);
-        _eputchar('\n');
+        write_stderr(target_dir);
+        write_stderr_char('\n');
         free(current_dir);
         return 1;
     }
