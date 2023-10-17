@@ -30,7 +30,7 @@ int unset_alias_variable(info_t *info, char *str)
     saved_char = *equal_sign;
     *equal_sign = 0;
     ret = delete_point_index(&(info->alias),
-                            get_node_index(info->alias, find_node_with_prefix(info->alias, str, -1)));
+                            get_index_of_node(info->alias, find_node_with_prefix(info->alias, str, -1)));
     *equal_sign = saved_char;
     return (ret);
 }
