@@ -29,7 +29,7 @@ char **list_to_strings(list_t *head)
     size_t index;
     char **string_array;
     char *str;
-    size_t j
+    size_t j;
 
     if (!head || !node_count)
         return NULL;
