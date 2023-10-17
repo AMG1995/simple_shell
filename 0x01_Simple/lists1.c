@@ -11,7 +11,6 @@ size_t count_nodes(const list_t *list)
     size_t count = 0;
 
     for (; list; list = list->next, count++) {
-        // No need to add any code within the loop body.
     }
 
     return count;
@@ -43,7 +42,8 @@ char **list_to_strings(list_t *head)
         str = malloc(_strlen(current->str) + 1);
 
         if (!str) {
-            for (size_t j = 0; j < index; j++)
+            size_t j
+            for (j = 0; j < index; j++)
                 free(string_array[j]);
             free(string_array);
             return NULL;
