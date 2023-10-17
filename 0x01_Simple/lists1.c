@@ -10,10 +10,8 @@ size_t count_nodes(const list_t *list)
 {
     size_t count = 0;
 
-    while (list)
-    {
-        list = list->next;
-        count++;
+    for (; list; list = list->next, count++) {
+        // No need to add any code within the loop body.
     }
 
     return count;
@@ -41,14 +39,11 @@ char **list_to_strings(list_t *head)
     if (!string_array)
         return NULL;
 
-    for (index = 0; current; current = current->next, index++)
-    {
+    for (index = 0; current; current = current->next, index++) {
         str = malloc(_strlen(current->str) + 1);
 
-        if (!str)
-        {
-            size_t j;
-            for (j = 0; j < index; j++)
+        if (!str) {
+            for (size_t j = 0; j < index; j++)
                 free(string_array[j]);
             free(string_array);
             return NULL;
@@ -73,15 +68,12 @@ size_t print_list(const list_t *head)
 {
     size_t node_count = 0;
 
-    while (head)
-    {
+    for (; head; head = head->next, node_count++) {
         _puts(convert_number(head->num, 10, 0));
         _putchar(':');
         _putchar(' ');
         _puts(head->str ? head->str : "(nil)");
         _puts("\n");
-        head = head->next;
-        node_count++;
     }
 
     return node_count;
@@ -99,14 +91,11 @@ list_t *node_starts_with(list_t *head, char *prefix, char next_char)
 {
     char *str_ptr = NULL;
 
-    while (head)
-    {
+    for (; head; head = head->next) {
         str_ptr = starts_with(head->str, prefix);
 
         if (str_ptr && ((next_char == -1) || (*str_ptr == next_char)))
             return head;
-
-        head = head->next;
     }
 
     return NULL;
@@ -123,13 +112,9 @@ ssize_t get_node_index(list_t *head, list_t *node)
 {
     size_t index = 0;
 
-    while (head)
-    {
+    for (; head; head = head->next, index++) {
         if (head == node)
             return index;
-
-        head = head->next;
-        index++;
     }
 
     return -1;
