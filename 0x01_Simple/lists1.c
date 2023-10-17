@@ -47,6 +47,7 @@ char **list_to_strings(list_t *head)
 
         if (!str)
         {
+            size_t j;
             for (size_t j = 0; j < index; j++)
                 free(string_array[j]);
             free(string_array);
