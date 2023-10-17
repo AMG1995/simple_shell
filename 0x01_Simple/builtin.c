@@ -9,8 +9,8 @@ int _forexit(info_t *info) {
         } else {
             info->status = 2;
             print_error(info, "Illegal number: ");
-            _eputs(info->argv[1]);
-            _eputchar('\n');
+            write_stderr(info->argv[1]);
+            write_stderr_char('\n');
         }
     }
     info->err_num = -1;
