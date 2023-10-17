@@ -1,166 +1,177 @@
 #include "shell.h"
 
 /**
- * bufferInput - buffers chained commands
+ * input_buf - buffers chained commands
  * @info: parameter struct
- * @buffer: address of buffer
- * @length: address of length var
+ * @buf: address of buffer
+ * @len: address of len var
  *
  * Return: bytes read
  */
-ssize_t bufferInput(info_t *info, char **buffer, size_t *length)
+ssize_t input_buf(info_t *info, char **buf, size_t *len)
 {
-    ssize_t bytesRead = 0;
+    ssize_t r = 0;
     size_t len_p = 0;
 
-    if (!*length) /* If nothing left in the buffer, fill it */
+    if (!*len) /* if nothing left in the buffer, fill it */
     {
-        free(*buffer);
-        *buffer = NULL;
-        signal(SIGINT, handleSIGINT);
+        /* bfree((void **)info->cmd_buf); */
+        free(*buf);
+        *buf = NULL;
+        signal(SIGINT, sigintHandler);
 #if USE_GETLINE
-        bytesRead = getline(buffer, &len_p, stdin);
+        r = getline(buf, &len_p, stdin);
 #else
-        bytesRead = _getline(info, buffer, &len_p);
+        r = _getline(info, buf, &len_p);
 #endif
-        if (bytesRead > 0)
+        if (r > 0)
         {
-            if ((*buffer)[bytesRead - 1] == '\n')
+            if ((*buf)[r - 1] == '\n')
             {
-                (*buffer)[bytesRead - 1] = '\0'; /* Remove trailing newline */
-                bytesRead--;
+                (*buf)[r - 1] = '\0'; /* remove trailing newline */
+                r--;
             }
-            info->lineCountFlag = 1;
-            removeComments(*buffer);
-            buildHistoryList(info, *buffer, info->histCount++);
-            *length = bytesRead;
-            info->commandBuffer = buffer;
+            info->linecount_flag = 1;
+            remove_comments(*buf);
+            build_history_list(info, *buf, info->histcount++);
+            /* if (_strchr(*buf, ';')) is this a command chain? */
+            {
+                *len = r;
+                info->cmd_buf = buf;
+            }
         }
     }
-    return bytesRead;
+    return r;
 }
 
 /**
- * getInput - gets a line minus the newline
+ * get_input - gets a line minus the newline
  * @info: parameter struct
  *
  * Return: bytes read
  */
-ssize_t getInput(info_t *info)
+ssize_t get_input(info_t *info)
 {
-    static char *buffer; /* The ';' command chain buffer */
-    static size_t currentIndex, j, length;
-    ssize_t bytesRead = 0;
-    char **bufferPointer = &(info->arg), *commandStart;
+    static char *buf; /* the ';' command chain buffer */
+    static size_t i, j, len;
+    ssize_t r = 0;
+    char **buf_p = &(info->arg), *p;
 
-    _putchar(BUFFER_FLUSH);
-    bytesRead = bufferInput(info, &buffer, &length);
-    if (bytesRead == -1) /* EOF */
+    _putchar(BUF_FLUSH);
+    r = input_buf(info, &buf, &len);
+    if (r == -1) /* EOF */
         return -1;
-    if (length) /* We have commands left in the chain buffer */
+    if (len) /* we have commands left in the chain buffer */
     {
-        j = currentIndex; /* Init new iterator to current buffer position */
-        commandStart = buffer + currentIndex; /* Get pointer for return */
+        j = i; /* init new iterator to current buf position */
+        p = buf + i; /* get pointer for return */
 
-        checkChain(info, buffer, &j, currentIndex, length);
-        while (j < length) /* Iterate to semicolon or end */
+        check_chain(info, buf, &j, i, len);
+        for (; j < len; j++) /* iterate to semicolon or end */
         {
-            if (isChain(info, buffer, &j))
+            if (is_chain(info, buf, &j))
                 break;
-            j++;
         }
 
-        currentIndex = j + 1; /* Increment past nulled ';'' */
-        if (currentIndex >= length) /* Reached end of buffer? */
+        i = j + 1; /* increment past nulled ';' */
+        if (i >= len) /* reached end of buffer? */
         {
-            currentIndex = length = 0; /* Reset position and length */
-            info->commandBufferType = COMMAND_NORMAL;
+            i = len = 0; /* reset position and length */
+            info->cmd_buf_type = CMD_NORM;
         }
 
-        *bufferPointer = commandStart; /* Pass back pointer to current command position */
-        return _strlen(commandStart); /* Return length of current command */
+        *buf_p = p; /* pass back pointer to the current command position */
+        return _strlen(p); /* return the length of the current command */
     }
 
-    *bufferPointer = buffer; /* Else not a chain, pass back buffer from _getline() */
-    return bytesRead; /* Return length of buffer from _getline() */
+    *buf_p = buf; /* else not a chain, pass back the buffer from _getline() */
+    return r; /* return the length of the buffer from _getline() */
 }
 
 /**
- * readBuffer - reads a buffer
+ * read_buf - reads a buffer
  * @info: parameter struct
- * @buffer: buffer
- * @currentIndex: size
+ * @buf: buffer
+ * @i: size
  *
- * Return: bytesRead
+ * Return: r
  */
-ssize_t read_buf(info_t *info, char *buffer, size_t *currentIndex)
+ssize_t read_buf(info_t *info, char *buf, size_t *i)
 {
-    ssize_t bytesRead = 0;
+    ssize_t r = 0;
 
-    if (*currentIndex)
+    if (*i)
         return 0;
-    bytesRead = read(info->readfd, buffer, READ_BUFFER_SIZE);
-    if (bytesRead >= 0)
-        *currentIndex = bytesRead;
-    return bytesRead;
+    r = read(info->readfd, buf, READ_BUF_SIZE);
+    if (r >= 0)
+        *i = r;
+    return r;
 }
 
 /**
  * _getline - gets the next line of input from STDIN
  * @info: parameter struct
- * @ptr: address of pointer to buffer, preallocated or NULL
- * @length: size of preallocated ptr buffer if not NULL
+ * @ptr: address of a pointer to buffer, preallocated or NULL
+ * @length: size of the preallocated ptr buffer if not NULL
  *
- * Return: size
+ * Return: s
  */
 int _getline(info_t *info, char **ptr, size_t *length)
 {
-    static char buffer[READ_BUFFER_SIZE];
-    static size_t currentIndex, length;
+    static char buf[READ_BUF_SIZE];
+    static size_t i, len;
     size_t k;
-    ssize_t bytesRead = 0, size = 0;
-    char *p = NULL, *newPointer = NULL, *c;
+    ssize_t r = 0, s = 0;
+    char *p = NULL, *new_p = NULL, *c;
 
     p = *ptr;
     if (p && length)
-        size = *length;
-    if (currentIndex == length)
-        currentIndex = length = 0;
+        s = *length;
+    if (i == len)
+        i = len = 0;
 
-    bytesRead = read_buf(info, buffer, &length);
-    if (bytesRead == -1 || (bytesRead == 0 && length == 0))
+    r = read_buf(info, buf, &len);
+    if (r == -1 || (r == 0 && len == 0))
         return -1;
 
-    c = _strchr(buffer + currentIndex, '\n');
-    k = c ? 1 + (unsigned int)(c - buffer) : length;
-    newPointer = _realloc(p, size, size ? size + k : k + 1);
-    if (!newPointer) /* MALLOC FAILURE! */
-        return (p ? free(p), -1 : -1);
+    for (c = _strchr(buf + i, '\n'); c; c = _strchr(buf + i, '\n'))
+    {
+        k = c ? 1 + (unsigned int)(c - buf) : len;
+        new_p = _realloc(p, s, s ? s + k : k + 1);
+        if (!new_p) /* MALLOC FAILURE! */
+        {
+            if (p)
+                free(p);
+            return -1;
+        }
 
-    if (size)
-        _strncat(newPointer, buffer + currentIndex, k - currentIndex);
-    else
-        _strncpy(newPointer, buffer + currentIndex, k - currentIndex + 1);
+        if (s)
+            for (size_t j = 0; j < k - i; j++)
+                new_p[s + j] = buf[i + j];
+        else
+            for (size_t j = 0; j < k - i + 1; j++)
+                new_p[j] = buf[i + j];
 
-    size += k - currentIndex;
-    currentIndex = k;
-    p = newPointer;
+        s += k - i;
+        i = k;
+        p = new_p;
+    }
 
     if (length)
-        *length = size;
+        *length = s;
     *ptr = p;
-    return size;
+    return s;
 }
 
 /**
- * handleSIGINT - blocks ctrl-C
- * @signalNumber: the signal number
+ * sigintHandler - blocks ctrl-C
+ * @sig_num: the signal number
  *
  * Return: void
  */
-void handleSIGINT(__attribute__((unused)) int signalNumber)
+void sigintHandler(__attribute__((unused)) int sig_num)
 {
     _puts("\n");
     _puts("$ ");
-    _putchar(BUFFER_FLUSH);
+    _putchar(BUF_FLUSH);
 }
