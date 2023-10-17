@@ -22,7 +22,7 @@ size_t count_nodes(const list_t *list)
  *
  * Return: an array of strings or NULL on failure
  */
-char **list_to_strings(list_t *head)
+char **convert_list_to_string_array(list_t *head)
 {
     list_t *current = head;
     size_t node_count = count_nodes(head);
@@ -64,7 +64,7 @@ char **list_to_strings(list_t *head)
  *
  * Return: the number of nodes in the list
  */
-size_t print_list(const list_t *head)
+size_t print_linked_list(const list_t *head)
 {
     size_t node_count = 0;
 
@@ -87,7 +87,7 @@ size_t print_list(const list_t *head)
  *
  * Return: the matching node or NULL if not found
  */
-list_t *node_starts_with(list_t *head, char *prefix, char next_char)
+list_t *find_node_with_prefix(list_t *head, char *prefix, char next_char)
 {
     char *str_ptr = NULL;
 
@@ -108,7 +108,7 @@ list_t *node_starts_with(list_t *head, char *prefix, char next_char)
  *
  * Return: the index of the node or -1 if not found
  */
-ssize_t get_node_index(list_t *head, list_t *node)
+ssize_t get_index_of_node(list_t *head, list_t *node)
 {
     size_t index = 0;
 
