@@ -17,7 +17,7 @@ size_t count_nodes(const list_t *list)
 }
 
 /**
- * list_to_strings - converts a linked list of strings into an array of strings
+ * convert_list_to_string_array - converts a linked list of strings into an array of strings
  * @head: pointer to the head of the linked list
  *
  * Return: an array of strings or NULL on failure
@@ -59,7 +59,7 @@ char **convert_list_to_string_array(list_t *head)
 }
 
 /**
- * print_list - prints all elements of a linked list
+ * print_linked_list - prints all elements of a linked list
  * @head: pointer to the head of the linked list
  *
  * Return: the number of nodes in the list
@@ -102,7 +102,7 @@ list_t *find_node_with_prefix(list_t *head, char *prefix, char next_char)
 }
 
 /**
- * get_node_index - gets the index of a specific node within a linked list
+ * get_index_of_node - gets the index of a specific node within a linked list
  * @head: pointer to the head of the linked list
  * @node: pointer to the node to find the index of
  *
