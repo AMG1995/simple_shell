@@ -93,7 +93,7 @@ ssize_t getInput(info_t *info)
  *
  * Return: bytesRead
  */
-ssize_t readBuffer(info_t *info, char *buffer, size_t *currentIndex)
+ssize_t read_buf(info_t *info, char *buffer, size_t *currentIndex)
 {
     ssize_t bytesRead = 0;
 
@@ -106,14 +106,14 @@ ssize_t readBuffer(info_t *info, char *buffer, size_t *currentIndex)
 }
 
 /**
- * customGetline - gets the next line of input from STDIN
+ * _getline - gets the next line of input from STDIN
  * @info: parameter struct
  * @ptr: address of pointer to buffer, preallocated or NULL
  * @length: size of preallocated ptr buffer if not NULL
  *
  * Return: size
  */
-int customGetline(info_t *info, char **ptr, size_t *length)
+int _getline(info_t *info, char **ptr, size_t *length)
 {
     static char buffer[READ_BUFFER_SIZE];
     static size_t currentIndex, length;
