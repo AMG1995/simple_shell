@@ -30,7 +30,7 @@ int unset_alias_variable(info_t *info, char *str)
     saved_char = *equal_sign;
     *equal_sign = 0;
     ret = delete_point_index(&(info->alias),
-                            get_index_of_node(info->alias, find_node_with_prefix(info->alias, str, -1)));
+                            get_node_index(info->alias, find_node_with_prefix(info->alias, str, -1)));
     *equal_sign = saved_char;
     return (ret);
 }
@@ -67,8 +67,12 @@ int print_alias_variable(list_t *node)
     if (node)
     {
         equal_sign = _strchr(node->str, '=');
-        for (alias_str = node->str; alias_str <= equal_sign; alias_str++)
+        alias_str = node->str;
+        while (alias_str <= equal_sign)
+        {
             _putchar(*alias_str);
+            alias_str++;
+        }
         _putchar('\'');
         _puts(equal_sign + 1);
         _puts("'\n");
@@ -85,9 +89,9 @@ int print_alias_variable(list_t *node)
  */
 int manage_alias(info_t *info)
 {
-    int i;
+    int i = 0;
     char *equal_sign;
-    list_t *node;
+    list_t *node = NULL;
 
     if (info->argc == 1)
     {
@@ -99,13 +103,14 @@ int manage_alias(info_t *info)
         }
         return (0);
     }
-    for (i = 1; info->argv[i]; i++)
+    while (info->argv[i])
     {
         equal_sign = _strchr(info->argv[i], '=');
         if (equal_sign)
             set_alias_variable(info, info->argv[i]);
         else
             print_alias_variable(find_node_with_prefix(info->alias, info->argv[i], '='));
+        i++;
     }
 
     return (0);
