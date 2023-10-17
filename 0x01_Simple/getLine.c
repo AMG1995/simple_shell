@@ -21,7 +21,7 @@ ssize_t bufferInput(info_t *info, char **buffer, size_t *length)
 #if USE_GETLINE
         bytesRead = getline(buffer, &len_p, stdin);
 #else
-        bytesRead = customGetline(info, buffer, &len_p);
+        bytesRead = _getline(info, buffer, &len_p);
 #endif
         if (bytesRead > 0)
         {
@@ -81,8 +81,8 @@ ssize_t getInput(info_t *info)
         return _strlen(commandStart); /* Return length of current command */
     }
 
-    *bufferPointer = buffer; /* Else not a chain, pass back buffer from customGetline() */
-    return bytesRead; /* Return length of buffer from customGetline() */
+    *bufferPointer = buffer; /* Else not a chain, pass back buffer from _getline() */
+    return bytesRead; /* Return length of buffer from _getline() */
 }
 
 /**
@@ -127,7 +127,7 @@ int _getline(info_t *info, char **ptr, size_t *length)
     if (currentIndex == length)
         currentIndex = length = 0;
 
-    bytesRead = readBuffer(info, buffer, &length);
+    bytesRead = read_buf(info, buffer, &length);
     if (bytesRead == -1 || (bytesRead == 0 && length == 0))
         return -1;
 
