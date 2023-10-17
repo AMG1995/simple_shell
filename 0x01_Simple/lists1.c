@@ -29,6 +29,7 @@ char **list_to_strings(list_t *head)
     size_t index;
     char **string_array;
     char *str;
+    size_t j
 
     if (!head || !node_count)
         return NULL;
@@ -42,7 +43,6 @@ char **list_to_strings(list_t *head)
         str = malloc(_strlen(current->str) + 1);
 
         if (!str) {
-            size_t j
             for (j = 0; j < index; j++)
                 free(string_array[j]);
             free(string_array);
