@@ -86,7 +86,7 @@ size_t print_list(const list_t *head)
 
     return node_count;
 }
-
+    
 /**
  * find_node_with_prefix - finds a node whose string starts with a given prefix
  * @head: pointer to the head of the linked list
@@ -95,7 +95,7 @@ size_t print_list(const list_t *head)
  *
  * Return: the matching node or NULL if not found
  */
-list_t *find_node_with_prefix(list_t *head, char *prefix, char next_char)
+list_t *node_starts_with(list_t *head, char *prefix, char next_char)
 {
     char *str_ptr = NULL;
 
