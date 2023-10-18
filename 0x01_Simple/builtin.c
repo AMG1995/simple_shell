@@ -8,8 +8,10 @@
  */
 int _forexit(info_t *info)
 {
+	
 	if (info->argv[1])
 	{
+		exit_status = _erratoi(info->argv[1]);
 		if (exit_status != -1)
 		{
 			info->err_num = exit_status;
