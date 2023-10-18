@@ -71,7 +71,6 @@ int _cd(info_t *info)
 		free(current_dir);
 		return (1);
 	}
-
 	_setenv(info, "OLDPWD", current_dir);
 	_setenv(info, "PWD", getcwd(NULL, 0));
 	free(current_dir);
@@ -87,6 +86,6 @@ int _cd(info_t *info)
 int _help(info_t *info)
 {
 	(void)info;
-	_puts("Help: This is a simple shell. Not all features are implemented yet.\n");
+	_puts("Help: This is a simple shell. Not all features are available.\n");
 	return (0);
 }
