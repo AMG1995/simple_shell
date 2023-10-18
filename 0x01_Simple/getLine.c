@@ -81,7 +81,7 @@ ssize_t get_input(info_t *info)
         }
 
         *buf_p = p; /* pass back pointer to the current command position */
-        return _strlen(p); /* return the length of the current command */
+        return stringLength(p); /* return the length of the current command */
     }
 
     *buf_p = buf; /* else not a chain, pass back the buffer from _getline() */
