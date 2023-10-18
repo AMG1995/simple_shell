@@ -44,7 +44,7 @@ char **convert_list_to_string_array(list_t *head)
 
 		if (!str) {
 			for (j = 0; j < index; j++)
-				free(string_array[j);
+				free(string_array[j]);
 			free(string_array);
 			return NULL;
 		}
