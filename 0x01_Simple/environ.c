@@ -77,10 +77,11 @@ int _unsetenvi(info_t *info)
  */
 int populate_env_list(info_t *info)
 {
+	
 	list_t *n = NULL;
 	size_t i;
 	i = 0;
-
+	
 	while (environ[i]) 
 		{
     		add_point_end(&n, environ[i], 0);
