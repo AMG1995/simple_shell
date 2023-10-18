@@ -9,10 +9,11 @@
  */
 char *stringCopy(char *destination, const char *source)
 {
+    int i;
     if (destination == source || source == 0)
         return destination;
     
-    for (int i = 0; source[i]; i++)
+    for (i = 0; source[i]; i++)
     {
         destination[i] = source[i];
     }
@@ -65,7 +66,7 @@ void _puts(const char *str)
 
     for (i = 0; str[i] != '\0'; i++)
     {
-        writeCharacter(str[i]);
+        _putchar(str[i]);
     }
 }
 
