@@ -1,18 +1,20 @@
-<<<<<<< HEAD
 #include "shell.h"
 
-int _forexit(info_t *info) {
-    if (info->argv[1]) {
-        int exit_status = _erratoi(info->argv[1]);
+int _forexit(info_t *info) 
+{
+	if (info->argv[1]) {
+		int exit_status = _erratoi(info->argv[1]);
         if (exit_status != -1) {
-            info->err_num = exit_status;
-            return -2;
-        } else {
-            info->status = 2;
-            print_error(info, "Illegal number: ");
-            write_stderr(info->argv[1]);
-            write_stderr_char('\n');
-        }
+		info->err_num = exit_status;
+		return -2;
+        } 
+	else 
+	{
+		info->status = 2;
+		print_error(info, "Illegal number: ");
+		write_stderr(info->argv[1]);
+		write_stderr_char('\n');
+	}
     }
     info->err_num = -1;
     return -2;
