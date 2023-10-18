@@ -9,11 +9,13 @@
  */
 char *fillMemory(char *destination, char byte, unsigned int size)
 {
-	unsigned int i;
+    unsigned int i = 0;
 
-	for (i = 0; i < size; i++)
-		destination[i] = byte;
-	return (destination);
+    while (i < size) {
+        destination[i] = byte;
+        i++;
+    }
+    return destination;
 }
 
 /**
@@ -22,13 +24,14 @@ char *fillMemory(char *destination, char byte, unsigned int size)
  */
 void freeStringArray(char **stringArray)
 {
-	char **temp = stringArray;
+    char **temp = stringArray;
 
-	if (!stringArray)
-		return;
-	while (*stringArray)
-		free(*stringArray++);
-	free(temp);
+    if (!stringArray)
+        return;
+    while (*stringArray) {
+        free(*stringArray++);
+    }
+    free(temp);
 }
 
 /**
@@ -41,22 +44,26 @@ void freeStringArray(char **stringArray)
  */
 void *reallocateMemory(void *oldBlock, unsigned int oldSize, unsigned int newSize)
 {
-	char *newBlock;
+    char *newBlock;
 
-	if (!oldBlock)
-		return (malloc(newSize));
-	if (!newSize)
-		return (free(oldBlock), NULL);
-	if (newSize == oldSize)
-		return (oldBlock);
+    if (!oldBlock)
+        return malloc(newSize);
+    if (!newSize)
+        return free(oldBlock), NULL;
+    if (newSize == oldSize)
+        return oldBlock;
 
-	newBlock = malloc(newSize);
-	if (!newBlock)
-		return (NULL);
+    newBlock = malloc(newSize);
+    if (!newBlock)
+        return NULL;
 
-	oldSize = oldSize < newSize ? oldSize : newSize;
-	while (oldSize--)
-		newBlock[oldSize] = ((char *)oldBlock)[oldSize];
-	free(oldBlock);
-	return (newBlock);
+    unsigned int minSize = oldSize < newSize ? oldSize : newSize;
+    unsigned int i = 0;
+    while (i < minSize) {
+        newBlock[i] = ((char *)oldBlock)[i];
+        i++;
+    }
+
+    free(oldBlock);
+    return newBlock;
 }
