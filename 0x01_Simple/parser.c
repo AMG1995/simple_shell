@@ -1,86 +1,100 @@
 #include "shell.h"
 
 /**
- * is_cmd - determines if a file is an executable command
- * @info: the info struct
- * @path: path to the file
+ * isExecutableCommand - Checks if a file is an executable command
+ * @info: The info struct
+ * @filePath: The path to the file
  *
- * Return: 1 if true, 0 otherwise
+ * Return: 1 if the file is an executable command, 0 otherwise
  */
-int is_cmd(info_t *info, char *path)
+int isExecutableCommand(info_t *info, char *filePath)
 {
-	struct stat st;
+    struct stat fileStat;
 
-	(void)info;
-	if (!path || stat(path, &st))
-		return (0);
+    (void)info;
+    if (!filePath || stat(filePath, &fileStat) != 0)
+        return 0;
 
-	if (st.st_mode & S_IFREG)
-	{
-		return (1);
-	}
-	return (0);
+    if (S_ISREG(fileStat.st_mode))
+    {
+        return 1;
+    }
+    return 0;
 }
 
 /**
- * dup_chars - duplicates characters
- * @pathstr: the PATH string
- * @start: starting index
- * @stop: stopping index
+ * duplicateSubstring - Duplicates a substring from a string
+ * @sourceString: The source string
+ * @startIndex: The starting index of the substring
+ * @endIndex: The ending index of the substring
  *
- * Return: pointer to new buffer
+ * Return: Pointer to a new buffer containing the duplicated substring
  */
-char *dup_chars(char *pathstr, int start, int stop)
+char *duplicateSubstring(char *sourceString, int startIndex, int endIndex)
 {
-	static char buf[1024];
-	int i = 0, k = 0;
+    static char buffer[1024];
+    int sourceIndex = startIndex;
+    int bufferIndex = 0;
 
-	for (k = 0, i = start; i < stop; i++)
-		if (pathstr[i] != ':')
-			buf[k++] = pathstr[i];
-	buf[k] = 0;
-	return (buf);
+    for (; sourceIndex < endIndex; sourceIndex++)
+    {
+        if (sourceString[sourceIndex] != ':')
+        {
+            buffer[bufferIndex++] = sourceString[sourceIndex];
+        }
+    }
+
+    buffer[bufferIndex] = '\0';
+    return buffer;
 }
 
 /**
- * find_path - finds this cmd in the PATH string
- * @info: the info struct
- * @pathstr: the PATH string
- * @cmd: the cmd to find
+ * findExecutableInPath - Finds the full path of a command in the PATH environment variable
+ * @info: The info struct
+ * @pathString: The PATH environment variable
+ * @command: The command to find
  *
- * Return: full path of cmd if found or NULL
+ * Return: The full path of the command if found, or NULL if not found
  */
-char *find_path(info_t *info, char *pathstr, char *cmd)
+char *findExecutableInPath(info_t *info, char *pathString, char *command)
 {
-	int i = 0, curr_pos = 0;
-	char *path;
+    int sourceIndex = 0;
+    int currentPos = 0;
+    char *fullPath;
 
-	if (!pathstr)
-		return (NULL);
-	if ((_strlen(cmd) > 2) && starts_with(cmd, "./"))
-	{
-		if (is_cmd(info, cmd))
-			return (cmd);
-	}
-	while (1)
-	{
-		if (!pathstr[i] || pathstr[i] == ':')
-		{
-			path = dup_chars(pathstr, curr_pos, i);
-			if (!*path)
-				_strcat(path, cmd);
-			else
-			{
-				_strcat(path, "/");
-				_strcat(path, cmd);
-			}
-			if (is_cmd(info, path))
-				return (path);
-			if (!pathstr[i])
-				break;
-			curr_pos = i;
-		}
-		i++;
-	}
-	return (NULL);
+    if (!pathString)
+        return NULL;
+
+    if ((_strlen(command) > 2) && starts_with(command, "./"))
+    {
+        if (isExecutableCommand(info, command))
+            return command;
+    }
+
+    while (1)
+    {
+        if (!pathString[sourceIndex] || pathString[sourceIndex] == ':')
+        {
+            fullPath = duplicateSubstring(pathString, currentPos, sourceIndex);
+
+            if (!*fullPath)
+                _strcat(fullPath, command);
+            else
+            {
+                _strcat(fullPath, "/");
+                _strcat(fullPath, command);
+            }
+
+            if (isExecutableCommand(info, fullPath))
+                return fullPath;
+
+            if (!pathString[sourceIndex])
+                break;
+
+            currentPos = sourceIndex;
+        }
+        sourceIndex++;
+    }
+
+    return NULL;
 }
