@@ -67,16 +67,16 @@ int _setenv(info_t *info, char *var, char *value)
 	if (!var || !value)
 		return (0);
 
-	buf = malloc(_strlen(var) + _strlen(value) + 2);
+	buf = malloc(stringLength(var) + stringLength(value) + 2);
 	if (!buf)
 		return (1);
 	_strcpy(buf, var);
-	_strcat(buf, "=");
+	stringConcatenate(buf, "=");
 	_strcat(buf, value);
 	node = info->env;
 	while (node)
 	{
-		p = starts_with(node->str, var);
+		p = stringStartsWith(node->str, var);
 		if (p && *p == '=')
 		{
 			free(node->str);
