@@ -21,7 +21,7 @@ list_t *add_point(list_t **h, const char *s, int num)
 	new_head->num = num;
 	if (s)
 	{
-		new_head->str = _strdup(s);
+		new_head->str = stringDuplicate(s);
 		if (!new_head->str)
 		{
 			free(new_head);
@@ -56,7 +56,7 @@ list_t *add_point_end(list_t **h, const char *s, int num)
 	new_node->num = num;
 	if (s)
 	{
-		new_node->str = _strdup(s);
+		new_node->str = stringDuplicate(s);
 		if (!new_node->str)
 		{
 			free(new_node);
