@@ -1,10 +1,10 @@
 #include "shell.h"
 
 /**
- * _forexit - handles the exit built-in command
- * @info: struct containing information about the shell
+ * _forexit - Handles the exit built-in command.
+ * @info: Struct containing information about the shell.
  *
- * Return: -2 for exit, -1 for error
+ * Return: -2 for exit, -1 for error.
  */
 int _forexit(info_t *info)
 {
@@ -28,10 +28,10 @@ int _forexit(info_t *info)
 }
 
 /**
- * _cd - handles the cd built-in command
- * @info: struct containing information about the shell
+ * _cd - Handles the cd built-in command.
+ * @info: Struct containing information about the shell.
  *
- * Return: 0 for success, 1 for error
+ * Return: 0 for success, 1 for error.
  */
 int _cd(info_t *info)
 {
@@ -79,10 +79,10 @@ int _cd(info_t *info)
 }
 
 /**
- * _help - handles the help built-in command
- * @info: struct containing information about the shell
+ * _help - Handles the help built-in command.
+ * @info: Struct containing information about the shell.
  *
- * Return: 0 for success
+ * Return: 0 for success.
  */
 int _help(info_t *info)
 {
