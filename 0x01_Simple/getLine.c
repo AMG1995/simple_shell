@@ -60,7 +60,7 @@ ssize_t get_input(info_t *info)
 	_putchar(BUF_FLUSH);
 	r = input_buf(info, &buf, &len);
 	if (r == -1) /* EOF */
-		return -1;
+		return (-1);
 	if (len) /* we have commands left in the chain buffer */
 	{
 		j = i; /* init new iterator to current buf position */
@@ -133,7 +133,7 @@ int _getline(info_t *info, char **ptr, size_t *length)
 
 	r = read_buf(info, buf, &len);
 	if (r == -1 || (r == 0 && len == 0))
-		return -1;
+		return (-1);
 
 	for (c = _strchr(buf + i, '\n'); c; c = _strchr(buf + i, '\n'))
 	{
@@ -143,7 +143,7 @@ int _getline(info_t *info, char **ptr, size_t *length)
 		{
 			if (p)
 				free(p);
-			return -1;
+			return (-1);
 		}
 
 		if (s)
