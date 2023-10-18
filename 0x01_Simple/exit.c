@@ -6,13 +6,14 @@
  * @src: The source string.
  * @n: The maximum number of characters to be copied.
  *
- * Return: The concatenated string.
+ * Return: A pointer to the concatenated string.
  */
 char *_strncpy(char *dest, char *src, int n)
 {
+	int i;
 	char *s = dest;
-	int i = 0;
 
+<<<<<<< HEAD
 	if (n > 0)
 	{
 		do
@@ -21,13 +22,22 @@ char *_strncpy(char *dest, char *src, int n)
 			i++;
 		}
 		while (src[i - 1] != '\0' && i < n);
+=======
+	i = 0;
+	while (src[i] != '\0' && i < n - 1)
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	if (i < n)
+	{
+>>>>>>> 55470f28ee2d30efcbff9da40f9bcce2650ac3fe
 		while (i < n)
 		{
 			dest[i] = '\0';
 			i++;
 		}
 	}
-
 	return s;
 }
 
@@ -37,14 +47,14 @@ char *_strncpy(char *dest, char *src, int n)
  * @src: The second string.
  * @n: The maximum number of bytes to be used for concatenation.
  *
- * Return: The concatenated string.
+ * Return: A pointer to the concatenated string.
  */
 char *_strncat(char *dest, char *src, int n)
 {
+	int i, j;
 	char *s = dest;
-	int i = 0;
-	int j = 0;
 
+<<<<<<< HEAD
 	if (n > 0)
 	{
 		do
@@ -63,8 +73,20 @@ char *_strncat(char *dest, char *src, int n)
 				dest[i] = '\0';
 			}
 		} while (j < n);
+=======
+	i = 0;
+	j = 0;
+	while (dest[i] != '\0')
+		i++;
+	while (src[j] != '\0' && j < n)
+	{
+		dest[i] = src[j];
+		i++;
+		j++;
+>>>>>>> 55470f28ee2d30efcbff9da40f9bcce2650ac3fe
 	}
-
+	if (j < n)
+		dest[i] = '\0';
 	return s;
 }
 
@@ -73,15 +95,15 @@ char *_strncat(char *dest, char *src, int n)
  * @s: The string to be parsed.
  * @c: The character to look for.
  *
- * Return: A pointer to the memory area s.
+ * Return: A pointer to the memory area of the character in the string.
  */
 char *_strchr(char *s, char c)
 {
-	do {
-		if (*s == c) {
+	while (*s != '\0')
+	{
+		if (*s == c)
 			return s;
-		}
-	} while (*s++ != '\0');
-
+		s++;
+	}
 	return NULL;
 }
