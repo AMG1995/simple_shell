@@ -81,8 +81,8 @@ char *findExecutableInPath(info_t *info, char *pathString, char *command)
                 stringConcatenate(fullPath, command);
             else
             {
-                _strcat(fullPath, "/");
-                _strcat(fullPath, command);
+                stringConcatenate(fullPath, "/");
+                stringConcatenate(fullPath, command);
             }
 
             if (isExecutableCommand(info, fullPath))
