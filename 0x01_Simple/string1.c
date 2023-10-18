@@ -7,7 +7,7 @@
  *
  * Return: pointer to the destination
  */
-char *stringCopy(char *destination, const char *source)
+char *stringCopy(char *destination, char *source)
 {
     int i;
     if (destination == source || source == 0)
@@ -57,7 +57,7 @@ char *stringDuplicate(const char *str)
  *
  * Return: Nothing
  */
-void _puts(const char *str)
+void _puts(char *str)
 {
     int i = 0;
 
