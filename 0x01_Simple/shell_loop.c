@@ -14,24 +14,24 @@ int hsh(info_t *info, char **av)
 
 	while (r != -1 && builtin_ret != -2)
 	{
-		initializeInfo(info);
+		clear_information(info);
 		if (interactive(info))
 			_puts("$ ");
 		write_stderr_char(BUF_FLUSH);
 		r = get_input(info);
 		if (r != -1)
 		{
-			populateInfo(info, av);
+			set_information(info, av);
 			builtin_ret = find_builtin(info);
 			if (builtin_ret == -1)
 				find_cmd(info);
 		}
 		else if (interactive(info))
 			_putchar('\n');
-		freeInfo(info, 0);
+		free_information(info, 0);
 	}
 	write_history(info);
-	freeInfo(info, 1);
+	free_information(info, 1);
 	if (!interactive(info) && info->status)
 		exit(info->status);
 	if (builtin_ret == -2)
