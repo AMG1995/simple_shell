@@ -8,6 +8,7 @@
  */
 int _forexit(info_t *info)
 {
+	int exit_status;
 	
 	if (info->argv[1])
 	{
