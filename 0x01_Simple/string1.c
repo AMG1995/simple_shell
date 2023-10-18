@@ -56,7 +56,7 @@ char *stringDuplicate(const char *str)
  *
  * Return: Nothing
  */
-void printString(const char *str)
+void _puts(const char *str)
 {
     int i = 0;
 
@@ -76,7 +76,7 @@ void printString(const char *str)
  * Return: On success 1.
  * On error, -1 is returned, and errno is set appropriately.
  */
-int writeCharacter(char c)
+int _putchar(char c)
 {
     static int i;
     static char buffer[WRITE_BUF_SIZE];
