@@ -52,7 +52,7 @@ list_t *add_point_end(list_t **h, const char *s, int num)
 	new_node = malloc(sizeof(list_t));
 	if (!new_node)
 		return (NULL);
-	_memset((void *)new_node, 0, sizeof(list_t));
+	fillMemory((void *)new_node, 0, sizeof(list_t));
 	new_node->num = num;
 	if (s)
 	{
