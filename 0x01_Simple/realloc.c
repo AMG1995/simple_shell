@@ -44,6 +44,7 @@ void freeStringArray(char **stringArray)
  */
 void *reallocateMemory(void *oldBlock, unsigned int oldSize, unsigned int newSize)
 {
+    unsigned int minSize;
     char *newBlock;
     
     if (!oldBlock)
@@ -60,7 +61,7 @@ void *reallocateMemory(void *oldBlock, unsigned int oldSize, unsigned int newSiz
     if (!newBlock)
         return NULL;
 
-    unsigned int minSize = oldSize < newSize ? oldSize : newSize;
+    minSize = oldSize < newSize ? oldSize : newSize;
     unsigned int i = 0;
     while (i < minSize)
     {
