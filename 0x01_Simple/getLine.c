@@ -41,7 +41,7 @@ ssize_t input_buf(info_t *info, char **buf, size_t *len)
 			}
 		}
 	}
-	return r;
+	return (r);
 }
 
 /**
@@ -81,11 +81,11 @@ ssize_t get_input(info_t *info)
 		}
 
 		*buf_p = p; /* pass back pointer to the current command position */
-		return stringLength(p); /* return the length of the current command */
+		return (stringLength(p)); /* return the length of the current command */
 	}
 
 	*buf_p = buf; /* else not a chain, pass back the buffer from _getline() */
-	return r; /* return the length of the buffer from _getline() */
+	return (r); /* return the length of the buffer from _getline() */
 }
 
 /**
@@ -101,11 +101,11 @@ ssize_t read_buf(info_t *info, char *buf, size_t *i)
 	ssize_t r = 0;
 
 	if (*i)
-		return 0;
+		return (0);
 	r = read(info->readfd, buf, READ_BUF_SIZE);
 	if (r >= 0)
 		*i = r;
-	return r;
+	return (r);
 }
 
 /**
@@ -161,7 +161,7 @@ int _getline(info_t *info, char **ptr, size_t *length)
 	if (length)
 		*length = s;
 	*ptr = p;
-	return s;
+	return (s);
 }
 
 /**
