@@ -17,7 +17,7 @@ list_t *add_point(list_t **h, const char *s, int num)
 	new_head = malloc(sizeof(list_t));
 	if (!new_head)
 		return (NULL);
-	_memset((void *)new_head, 0, sizeof(list_t));
+	fillMemory((void *)new_head, 0, sizeof(list_t));
 	new_head->num = num;
 	if (s)
 	{
