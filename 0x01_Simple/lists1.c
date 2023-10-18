@@ -49,7 +49,7 @@ char **convert_list_to_string_array(list_t *head)
             return NULL;
         }
 
-        str = _strcpy(str, current->str);
+        str = stringCopy(str, current->str);
         string_array[index] = str;
     }
 
