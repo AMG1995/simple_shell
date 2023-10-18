@@ -51,7 +51,7 @@ void set_information(info_t *info, char **av)
  */
 void free_information(info_t *info, int all)
 {
-	ffree(info->argv);
+	freeStringArray(info->argv);
 	info->argv = NULL;
 	info->path = NULL;
 	if (all)
