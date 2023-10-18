@@ -70,7 +70,7 @@ int _setenv(info_t *info, char *var, char *value)
 	buf = malloc(stringLength(var) + stringLength(value) + 2);
 	if (!buf)
 		return (1);
-	_strcpy(buf, var);
+	stringCopy(buf, var);
 	stringConcatenate(buf, "=");
 	stringConcatenate(buf, value);
 	node = info->env;
