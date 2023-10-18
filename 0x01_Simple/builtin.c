@@ -1,6 +1,6 @@
 #include "shell.h"
-
-/**
+ 
+ /**
  *_forexit - Handles the exit built-in command.
  *@info: Struct containing information about the shell.
  *
