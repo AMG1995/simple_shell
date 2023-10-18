@@ -32,7 +32,7 @@ int _cd(info_t *info) {
         return 1;
     }
 
-    if (_strcmp(target_dir, "-") == 0) {
+    if (stringCompare(target_dir, "-") == 0) {
         target_dir = _getenv(info, "OLDPWD=");
         if (!target_dir) {
             _puts(current_dir);
