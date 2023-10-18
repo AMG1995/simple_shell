@@ -132,10 +132,10 @@ int write_to_fd(char c, int fd);
 int write_string_to_fd(char *str, int fd);
 
 /* toem_string.c */
-int _strlen(char *);
-int _strcmp(char *, char *);
-char *starts_with(const char *, const char *);
-char *_strcat(char *, char *);
+int stringLength(char *);
+int stringCompare(char *, char *);
+char *stringStartsWith(const char *, const char *);
+char *stringConcatenate(char *, char *);
 
 /* toem_string1.c */
 char *_strcpy(char *, char *);
