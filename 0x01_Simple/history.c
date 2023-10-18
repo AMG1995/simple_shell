@@ -20,7 +20,7 @@ char *get_history_file(info_t *info)
 	buf[0] = 0;
 	_strcpy(buf, dir);
 	stringConcatenate(buf, "/");
-	_strcat(buf, HIST_FILE);
+	stringConcatenate(buf, HIST_FILE);
 	return (buf);
 }
 
