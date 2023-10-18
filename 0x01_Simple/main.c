@@ -10,9 +10,9 @@
 int main(int ac, char **av)
 {
     info_t info;
-    memset(&info, 0, sizeof(info_t));
-
     int fd = 2;
+    
+    memset(&info, 0, sizeof(info_t));
     __asm__(
         "mov %1, %0\n\t"
         "add $3, %0"
