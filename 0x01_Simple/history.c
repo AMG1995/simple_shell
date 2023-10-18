@@ -18,7 +18,7 @@ char *get_history_file(info_t *info)
 	if (!buf)
 		return (NULL);
 	buf[0] = 0;
-	_strcpy(buf, dir);
+	stringCopy(buf, dir);
 	stringConcatenate(buf, "/");
 	stringConcatenate(buf, HIST_FILE);
 	return (buf);
