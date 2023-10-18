@@ -1,12 +1,12 @@
 #include "shell.h"
 
 /**
- * is_chain - test if current char in buffer is a chain delimeter
- * @info: the parameter struct
- * @buf: the char buffer
- * @p: address of current position in buf
+ * is_chain - Test if the current character in the buffer is a chain delimiter
+ * @info: The parameter struct
+ * @buf: The character buffer
+ * @p: Address of the current position in buf
  *
- * Return: 1 if chain delimeter, 0 otherwise
+ * Return: 1 if it's a chain delimiter, 0 otherwise
  */
 int is_chain(info_t *info, char *buf, size_t *p)
 {
@@ -14,34 +14,34 @@ int is_chain(info_t *info, char *buf, size_t *p)
 
 	if (buf[j] == '|' && buf[j + 1] == '|')
 	{
-		buf[j] = 0;
+		buf[j] = '\0';
 		j++;
 		info->cmd_buf_type = CMD_OR;
 	}
 	else if (buf[j] == '&' && buf[j + 1] == '&')
 	{
-		buf[j] = 0;
+		buf[j] = '\0';
 		j++;
 		info->cmd_buf_type = CMD_AND;
 	}
-	else if (buf[j] == ';') /* found end of this command */
+	else if (buf[j] == ';') /* Found the end of this command */
 	{
-		buf[j] = 0; /* replace semicolon with null */
+		buf[j] = '\0'; /* Replace semicolon with null terminator */
 		info->cmd_buf_type = CMD_CHAIN;
 	}
 	else
-		return (0);
+		return 0;
 	*p = j;
-	return (1);
+	return 1;
 }
 
 /**
- * check_chain - checks we should continue chaining based on last status
- * @info: the parameter struct
- * @buf: the char buffer
- * @p: address of current position in buf
- * @i: starting position in buf
- * @len: length of buf
+ * check_chain - Checks whether we should continue chaining based on the last status
+ * @info: The parameter struct
+ * @buf: The character buffer
+ * @p: Address of the current position in buf
+ * @i: Starting position in buf
+ * @len: Length of buf
  *
  * Return: Void
  */
@@ -53,7 +53,7 @@ void check_chain(info_t *info, char *buf, size_t *p, size_t i, size_t len)
 	{
 		if (info->status)
 		{
-			buf[i] = 0;
+			buf[i] = '\0';
 			j = len;
 		}
 	}
@@ -61,7 +61,7 @@ void check_chain(info_t *info, char *buf, size_t *p, size_t i, size_t len)
 	{
 		if (!info->status)
 		{
-			buf[i] = 0;
+			buf[i] = '\0';
 			j = len;
 		}
 	}
@@ -70,8 +70,8 @@ void check_chain(info_t *info, char *buf, size_t *p, size_t i, size_t len)
 }
 
 /**
- * replace_alias - replaces an aliases in the tokenized string
- * @info: the parameter struct
+ * replace_alias - Replaces aliases in the tokenized string
+ * @info: The parameter struct
  *
  * Return: 1 if replaced, 0 otherwise
  */
@@ -79,28 +79,28 @@ int replace_alias(info_t *info)
 {
 	int i;
 	list_t *node;
-	char *p;
+	char *alias_value;
 
 	for (i = 0; i < 10; i++)
 	{
 		node = find_node_with_prefix(info->alias, info->argv[0], '=');
 		if (!node)
-			return (0);
+			return 0;
 		free(info->argv[0]);
-		p = _strchr(node->str, '=');
-		if (!p)
-			return (0);
-		p = stringDuplicate(p + 1);
-		if (!p)
-			return (0);
-		info->argv[0] = p;
+		alias_value = _strchr(node->str, '=');
+		if (!alias_value)
+			return 0;
+		alias_value = stringDuplicate(alias_value + 1);
+		if (!alias_value)
+			return 0;
+		info->argv[0] = alias_value;
 	}
-	return (1);
+	return 1;
 }
 
 /**
- * replace_vars - replaces vars in the tokenized string
- * @info: the parameter struct
+ * replace_vars - Replaces variables in the tokenized string
+ * @info: The parameter struct
  *
  * Return: 1 if replaced, 0 otherwise
  */
@@ -134,15 +134,14 @@ int replace_vars(info_t *info)
 			continue;
 		}
 		replace_string(&info->argv[i], stringDuplicate(""));
-
 	}
-	return (0);
+	return 0;
 }
 
 /**
- * replace_string - replaces string
- * @old: address of old string
- * @new: new string
+ * replace_string - Replaces a string
+ * @old: Address of the old string
+ * @new: New string
  *
  * Return: 1 if replaced, 0 otherwise
  */
@@ -150,5 +149,5 @@ int replace_string(char **old, char *new)
 {
 	free(*old);
 	*old = new;
-	return (1);
+	return 1;
 }
