@@ -1,92 +1,88 @@
 #include "shell.h"
 
 /**
- * _forexit - Handles the exit built-in command.
- * @info: Struct containing information about the shell.
+ * _strncpy - Copies a string.
+ * @dest: The destination string to be copied to.
+ * @src: The source string.
+ * @n: The maximum number of characters to be copied.
  *
- * Return: -2 for exit, -1 for error.
+ * Return: The concatenated string.
  */
-int _forexit(info_t *info)
+char *_strncpy(char *dest, char *src, int n)
 {
-	if (info->argv[1])
+	char *s = dest;
+	int i = 0;
+
+	if (n > 0)
 	{
-		int exit_status = _erratoi(info->argv[1]);
-		if (exit_status != -1)
+		do
 		{
-			info->err_num = exit_status;
-			return (-2);
-		}
-		else{
-			info->status = 2;
-			print_error(info, "Illegal number: ");
-			write_stderr(info->argv[1]);
-			write_stderr_char('\n');
+			dest[i] = src[i];
+			i++;
+		} while (src[i - 1] != '\0' && i < n);
+		while (i < n)
+		{
+			dest[i] = '\0';
+			i++;
 		}
 	}
-	info->err_num = -1;
-	return (-2);
+
+	return s;
 }
 
 /**
- * _cd - Handles the cd built-in command.
- * @info: Struct containing information about the shell.
+ * _strncat - Concatenates two strings.
+ * @dest: The first string.
+ * @src: The second string.
+ * @n: The maximum number of bytes to be used for concatenation.
  *
- * Return: 0 for success, 1 for error.
+ * Return: The concatenated string.
  */
-int _cd(info_t *info)
+char *_strncat(char *dest, char *src, int n)
 {
-	char *target_dir = (info->argv[1]) ? info->argv[1] : _getenv(info, "HOME=");
-	char *current_dir;
+	char *s = dest;
+	int i = 0;
+	int j = 0;
 
-	if (!target_dir)
+	if (n > 0)
 	{
-		_puts("HOME environment variable not set\n");
-		return (1);
-	}
-
-	current_dir = getcwd(NULL, 0);
-	if (!current_dir)
-	{
-		_puts("getcwd failure\n");
-		return (1);
-	}
-
-	if (stringCompare(target_dir, "-") == 0)
-	{
-		target_dir = _getenv(info, "OLDPWD=");
-		if (!target_dir)
+		do
 		{
-			_puts(current_dir);
-			_putchar('\n');
-			free(current_dir);
-			return (0);
-		}
+			while (dest[i] != '\0')
+			{
+				i++;
+			}
+			do
+			{
+				dest[i] = src[j];
+				i++;
+				j++;
+			} while (src[j - 1] != '\0' && j < n);
+			if (j < n)
+			{
+				dest[i] = '\0';
+			}
+		} while (j < n);
 	}
 
-	if (chdir(target_dir) == -1)
-	{
-		print_error(info, "can't cd to ");
-		write_stderr(target_dir);
-		write_stderr_char('\n');
-		free(current_dir);
-		return (1);
-	}
-
-	_setenv(info, "OLDPWD", current_dir);
-	_setenv(info, "PWD", getcwd(NULL, 0));
-	free(current_dir);
-	return (0);
+	return s;
 }
 
 /**
- * _help - Handles the help built-in command.
- * @info: Struct containing information about the shell.
+ * _strchr - Locates a character in a string.
+ * @s: The string to be parsed.
+ * @c: The character to look for.
  *
- * Return: 0 for success.
+ * Return: A pointer to the memory area s.
  */
-int _help(info_t *info)
+char *_strchr(char *s, char c)
 {
-	(void)info;
-	_puts("Help: This is a simple shell. Not all features are implemented yet.\n");
-	return (0);
+	do
+	{
+		if (*s == c)
+			return s;
+
+	} while (*s++ != '\0');
+
+	return NULL;
 }
