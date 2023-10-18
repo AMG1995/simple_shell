@@ -138,7 +138,7 @@ int _getline(info_t *info, char **ptr, size_t *length)
     for (c = _strchr(buf + i, '\n'); c; c = _strchr(buf + i, '\n'))
     {
         k = c ? 1 + (unsigned int)(c - buf) : len;
-        new_p = _realloc(p, s, s ? s + k : k + 1);
+        new_p = reallocateMemory (p, s, s ? s + k : k + 1);
         if (!new_p) /* MALLOC FAILURE! */
         {
             if (p)
