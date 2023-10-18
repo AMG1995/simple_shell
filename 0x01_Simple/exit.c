@@ -16,8 +16,7 @@ int _forexit(info_t *info)
 			info->err_num = exit_status;
 			return (-2);
 		}
-		else
-		{
+		else{
 			info->status = 2;
 			print_error(info, "Illegal number: ");
 			write_stderr(info->argv[1]);
