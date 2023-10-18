@@ -64,7 +64,7 @@ void free_information(info_t *info, int all)
 			free_list(&(info->history));
 		if (info->alias)
 			free_list(&(info->alias));
-		ffree(info->environ);
+		freeStringArray (info->environ);
 			info->environ = NULL;
 		pointer_free((void **)info->cmd_buf);
 		if (info->readfd > 2)
