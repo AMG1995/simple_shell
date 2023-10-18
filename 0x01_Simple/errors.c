@@ -91,5 +91,5 @@ int write_string_to_fd(char *str, int fd)
 		i += write_to_fd(str[j], fd);
 	}
 
-	return i;
+	return (i);
 }
