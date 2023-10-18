@@ -188,9 +188,9 @@ int _getline(info_t *, char **, size_t *);
 void sigintHandler(int);
 
 /* toem_getinfo.c */
-void initializeInfo(info_t *);
-void populateInfo(info_t *, char **);
-void freeInfo(info_t *, int);
+void clear_information(info_t *);
+void set_information(info_t *, char **);
+void free_information(info_t *, int);
 
 /* toem_environ.c */
 char *_getenv(info_t *, const char *);
