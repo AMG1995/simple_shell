@@ -139,8 +139,8 @@ char *stringConcatenate(char *, char *);
 
 /* toem_string1.c */
 char *stringCopy(char *, char *);
-char *_ststringDuplicaterdup(const char *);
-void _puts (char *);
+char *stringDuplicate(const char *);
+void _puts(char *);
 int _putchar(char);
 
 /* toem_exits.c */
