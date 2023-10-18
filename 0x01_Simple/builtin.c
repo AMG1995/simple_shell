@@ -39,7 +39,7 @@ int _cd(info_t *info)
 {
 	char *current_dir, *target_dir, buffer[1024];
 	int chdir_ret;
-
+	
 	current_dir = getcwd(buffer, 1024);
 	if (!current_dir)
 		_puts("TODO: >>getcwd failure emsg here<<\n");
@@ -77,10 +77,8 @@ int _cd(info_t *info)
 	}
 	else
 	{
-		_setenv(info, "OLDPWD",
-			_getenv(info, "PWD="));
-		_setenv(info, "PWD", 
-			getcwd(buffer, 1024));
+		_setenv(info, "OLDPWD",_getenv(info, "PWD="));
+		_setenv(info, "PWD", getcwd(buffer, 1024));
 	}
 	return (0);
 }
