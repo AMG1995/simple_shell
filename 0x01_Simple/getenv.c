@@ -35,7 +35,7 @@ int _unsetenv(info_t *info, char *var)
 
 	while (node)
 	{
-		p = starts_with(node->str, var);
+		p = stringStartsWith(node->str, var);
 		if (p && *p == '=')
 		{
 			info->env_changed = delete_point_index(&(info->env), i);
@@ -72,7 +72,7 @@ int _setenv(info_t *info, char *var, char *value)
 		return (1);
 	_strcpy(buf, var);
 	stringConcatenate(buf, "=");
-	_strcat(buf, value);
+	stringConcatenate(buf, value);
 	node = info->env;
 	while (node)
 	{
