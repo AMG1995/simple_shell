@@ -65,7 +65,7 @@ char *findExecutableInPath(info_t *info, char *pathString, char *command)
     if (!pathString)
         return NULL;
 
-    if ((_strlen(command) > 2) && starts_with(command, "./"))
+    if ((stringLength(command) > 2) && stringStartsWith(command, "./"))
     {
         if (isExecutableCommand(info, command))
             return command;
@@ -78,7 +78,7 @@ char *findExecutableInPath(info_t *info, char *pathString, char *command)
             fullPath = duplicateSubstring(pathString, currentPos, sourceIndex);
 
             if (!*fullPath)
-                _strcat(fullPath, command);
+                stringConcatenate(fullPath, command);
             else
             {
                 _strcat(fullPath, "/");
