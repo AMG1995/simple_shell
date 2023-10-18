@@ -92,7 +92,7 @@ list_t *find_node_with_prefix(list_t *head, char *prefix, char next_char)
     char *str_ptr = NULL;
 
     for (; head; head = head->next) {
-        str_ptr = starts_with(head->str, prefix);
+        str_ptr = stringStartsWith(head->str, prefix);
 
         if (str_ptr && ((next_char == -1) || (*str_ptr == next_char)))
             return head;
