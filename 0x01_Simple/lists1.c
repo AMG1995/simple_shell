@@ -40,7 +40,7 @@ char **convert_list_to_string_array(list_t *head)
         return NULL;
 
     for (index = 0; current; current = current->next, index++) {
-        str = malloc(_strlen(current->str) + 1);
+        str = malloc(stringLength(current->str) + 1);
 
         if (!str) {
             for (j = 0; j < index; j++)
